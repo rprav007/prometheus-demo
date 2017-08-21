@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: Prometheus
+metadata:
+  name: hello-world-prom
+  labels:
+    prometheus: hello-world-prom
+  namespace: monitoring-demo
+spec:
+  alerting:
+    alertmanagers:
+      - name: alertmanager-main
+        namespace: tectonic-system
+        port: web
+  replicas: 2
+  resources:
+    requests:
+      memory: 400Mi
+  ruleSelector:
+    matchLabels:
+      prometheus: prometheus-helloworld
+      role: prometheus-rulefiles
+  serviceAccountName: prometheus-hello-world 
+  serviceMonitorSelector:
+    matchLabels:
+      prometheus: monitoring-prom
+  version: v1.7.1
+

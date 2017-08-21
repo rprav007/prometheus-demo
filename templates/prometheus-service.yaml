@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus-hello-world
+  namespace: monitoring-demo
+  labels:
+    prometheus: hello-world
+spec:
+  ports:
+    - name: web
+      protocol: TCP
+      port: 9090
+      targetPort: web
+  selector:
+    prometheus: hello-world-prom
+  type: LoadBalancer
+

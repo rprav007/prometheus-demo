@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ServiceMonitor
+metadata:
+  name: prometheus
+  namespace: monitoring-demo
+  labels:
+    prometheus: monitoring-prom
+spec:
+  endpoints:
+    - interval: 1s
+      port: metrics
+  selector:
+    matchLabels:
+      app: hello-world
+

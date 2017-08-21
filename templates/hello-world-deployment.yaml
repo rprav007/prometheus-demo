@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: hello-world
+  labels:
+    version: v1
+  namespace: monitoring-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-world
+      env: production
+  template:
+    metadata:
+      labels:
+        app: hello-world
+        env: production
+    spec:
+      containers:
+        - name: hello-world
+          image: 'quay.io/jordan_cooks/hello-world-demo:nolatency'
+          ports:
+            - name: web
+              containerPort: 5000
+              protocol: TCP
+            - name: metrics
+              containerPort: 8000
+              protocol: TCP
+          imagePullPolicy: IfNotPresent

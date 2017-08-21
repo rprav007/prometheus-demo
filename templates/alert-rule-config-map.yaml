@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: prometheus-latency-rules
+  namespace: monitoring-demo
+  labels:
+    prometheus: prometheus-helloworld
+    role: prometheus-rulefiles
+data:
+  alerting.rules: |
+    # Alert for any instance that have a median request latency >1s.
+    ALERT APIHighRequestLatency
+      IF rate(flask_request_latency_seconds_sum[10s]) / rate(flask_request_latency_seconds_count[10s]) > 1 
+      FOR 1s
+      ANNOTATIONS {
+        summary = "High request latency on \{\{ \$labels.instance \}\}",
+        description = "\{\{ \$labels.instance \}\} has a median request latency above 1s (current value: \{\{ \$value \}\}s)",
+      }
+
