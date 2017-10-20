@@ -1,4 +1,4 @@
-```kind: ConfigMap
+kind: ConfigMap
 apiVersion: v1
 metadata:
   name: prometheus-latency-rules
@@ -22,4 +22,5 @@ data:
       FOR 10s
       ANNOTATIONS {
         summary = "High request latency on {{ $labels.instance }}",
-        description = "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)",```
+        description = "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)",
+      }
